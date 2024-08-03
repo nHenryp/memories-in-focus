@@ -120,43 +120,34 @@ router.post('/:photoId/comments', async (req, res) => {
 });
 
 
-// // comments update
+//comments update
 
-// router.put('/:photoId/comments/:commentId', async (req, res) => {
-//     try {
-//         const photo = await Photo.findById(req.params.photoId)
-//         const comment = photo.comments.id(req.params.commentId)
-//         comment.text = req.body.text
-//         await photo.save()
-//         return res.json(photo)
-//     } catch (error) {
-//         console.log(error)
-//         if (res.statusCode === 200) {
-//             res.status(500)
-//         }
-//         return res.json({ error: error.message})
-//     }
-// })
+router.put('/:photoId/comments/:commentId', async (req, res) => {
+
+  try {
+    const photo = await Photo.findById(req.params.photoId)
+    const comment = photo.comments.id(req.params.commentId)
+    comment.text = req.body.text
+    await photo.save()
+    res.status(200).json({ message: 'Ok' })
+  } catch (err) {
+    res.status(500).json(err)
+  }
+});
 
 
-// // comments delete
 
-// router.delete('/:photoId/comments/:commentId', async (req, res) => {
-//     try {
-//         const photo = await Photo.findById(req.params.photoId)
-//         const comment = photo.comments.id(req.params.commentId)
-//         const deletedComment = req.params.commentId
-//         photo.comments.remove(deletedComment)
-//         await photo.save()
-//         return res.json(photo)
-//     } catch (error) {
-//         console.log(error)
-//         if (res.statusCode === 200) {
-//             res.status(500)
-//         }
-//         return res.json({error: error.message})
-//     }
-// })
+router.delete('/:photoId/comments/:commentId', async (req, res) => {
+
+   try {
+    const photo = await Photo.findById(req.params.photoId)
+    photo.comments.remove({ _id: req.params.commentId })
+    await photo.save()
+    res.status(200).json({ message: 'Ok' })
+  } catch (err) {
+    res.status(500).json(err)
+  }
+});
 
 
 module.exports = router;
