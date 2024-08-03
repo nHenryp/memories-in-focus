@@ -30,7 +30,9 @@ router.post('/signin', async (req, res) => {
     try {
         const user = await User.findOne({ username: req.body.username })
         if (user && bcrypt.compareSync(req.body.password, user.password)) {
-            const token = jwt.sign({ username: user.username, _id: user._id }, process.env.JWT_SECRET)
+            const token = jwt.sign({ username: user.username, _id: user._id }, process.env.JWT_SECRET, {
+                expiresIn: '24h'
+            })
             return res.status(200).json({ token, user })
         } else {
             return res.status(401).json({ error: 'Incorrect username or password' })
