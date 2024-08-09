@@ -31,7 +31,7 @@ const photoSchema = new mongoose.Schema(
           
         },
         author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-        comments: [commentSchema]
+        comments: [commentSchema],
       },
       { timestamps: true }
     );

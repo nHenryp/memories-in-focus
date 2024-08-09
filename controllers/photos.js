@@ -130,6 +130,7 @@ router.put('/:photoId/comments/:commentId', async (req, res) => {
     comment.text = req.body.text
     await photo.save()
     res.status(200).json({ message: 'Ok' })
+    return res.json(comment)
   } catch (err) {
     res.status(500).json(err)
   }
