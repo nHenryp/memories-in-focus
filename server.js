@@ -13,7 +13,7 @@ const profilesRouter = require('./controllers/profiles')
 const photosRouter = require('./controllers/photos.js')
 
 //Middleware
-const verifyToken = require('./middleware/verify-token.js')
+
 
 mongoose.connect(process.env.MONGODB_URI)
 
